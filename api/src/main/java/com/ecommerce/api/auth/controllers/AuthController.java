@@ -1,5 +1,6 @@
 package com.ecommerce.api.auth.controllers;
 
+import com.ecommerce.api.auth.dto.input.LoginDto;
 import com.ecommerce.api.auth.dto.input.RegisterDto;
 import com.ecommerce.api.auth.dto.output.AuthenticationResponseDto;
 import com.ecommerce.api.auth.interfaces.AuthService;
@@ -20,6 +21,11 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<AuthenticationResponseDto> register(@RequestBody RegisterDto registerDto) {
-        return new ResponseEntity(authService.register(registerDto) ,  HttpStatus.CREATED);
+        return new ResponseEntity<>(authService.register(registerDto) ,  HttpStatus.CREATED);
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<AuthenticationResponseDto> login(@RequestBody LoginDto loginDto) {
+        return new ResponseEntity<>(authService.login(loginDto) , HttpStatus.OK);
     }
 }
