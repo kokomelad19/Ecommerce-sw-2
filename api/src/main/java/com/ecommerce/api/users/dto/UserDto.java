@@ -1,12 +1,14 @@
 package com.ecommerce.api.users.dto;
 
 import com.ecommerce.api.users.enums.UserTypes;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
 public class UserDto {
 
     private Long id;
