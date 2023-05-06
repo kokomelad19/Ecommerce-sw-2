@@ -1,8 +1,9 @@
 package com.ecommerce.api.users.mapper;
 
-import com.ecommerce.api.users.dto.input.UpdateProfileDto;
+import com.ecommerce.api.users.dto.input.RegisterDto;
 import com.ecommerce.api.users.dto.output.UserDto;
 import com.ecommerce.api.users.models.Users;
+import com.ecommerce.api.users.models.Users.UsersBuilder;
 import javax.annotation.processing.Generated;
 import org.springframework.stereotype.Component;
 
@@ -12,7 +13,7 @@ import org.springframework.stereotype.Component;
     comments = "version: 1.4.2.Final, compiler: javac, environment: Java 17.0.1 (Oracle Corporation)"
 )
 @Component
-public class UsersMapperImpl implements UsersMapper {
+public class AuthMapperImpl implements AuthMapper {
 
     @Override
     public UserDto toUserDto(Users user) {
@@ -33,17 +34,19 @@ public class UsersMapperImpl implements UsersMapper {
     }
 
     @Override
-    public Users updateUserFromDto(UpdateProfileDto updateProfileDto, Users user) {
-        if ( updateProfileDto == null ) {
+    public Users registerDtoToEntity(RegisterDto registerDto) {
+        if ( registerDto == null ) {
             return null;
         }
 
-        user.setEmail( updateProfileDto.getEmail() == null ? user.getEmail() : updateProfileDto.getEmail() );
-        user.setFirstName( updateProfileDto.getFirstName() == null ? user.getFirstName() : updateProfileDto.getFirstName() );
-        user.setLastName( updateProfileDto.getLastName() == null ? user.getLastName() : updateProfileDto.getLastName() );
-        user.setPhone( updateProfileDto.getPhone() == null ? user.getPhone() : updateProfileDto.getPhone() );
-        user.setPassword( updateProfileDto.getPassword() == null ? user.getPassword() : updateProfileDto.getPassword() );
+        UsersBuilder users = Users.builder();
 
-        return user;
+        users.firstName( registerDto.getFirstName() );
+        users.lastName( registerDto.getLastName() );
+        users.email( registerDto.getEmail() );
+        users.password( registerDto.getPassword() );
+        users.phone( registerDto.getPhone() );
+
+        return users.build();
     }
 }

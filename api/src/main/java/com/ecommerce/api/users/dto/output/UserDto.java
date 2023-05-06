@@ -25,7 +25,7 @@ public class UserDto {
 
     private String phone;
 
-    private UserTypes userTypes = UserTypes.USER;
+    private UserTypes userType = UserTypes.USER;
 
 
 }
