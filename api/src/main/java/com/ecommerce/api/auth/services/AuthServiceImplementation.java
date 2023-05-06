@@ -6,7 +6,7 @@ import com.ecommerce.api.auth.dto.output.AuthenticationResponseDto;
 import com.ecommerce.api.auth.interfaces.AuthService;
 import com.ecommerce.api.auth.mapper.AuthMapper;
 import com.ecommerce.api.auth.security.JwtService;
-import com.ecommerce.api.users.dto.UserDto;
+import com.ecommerce.api.users.dto.output.UserDto;
 import com.ecommerce.api.users.models.Users;
 import com.ecommerce.api.users.repository.UsersRepository;
 import lombok.RequiredArgsConstructor;

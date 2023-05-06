@@ -1,34 +1,36 @@
-package com.ecommerce.api.auth.dto.input;
+package com.ecommerce.api.users.dto.input;
 
+import jakarta.annotation.Nullable;
 import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 
 @Getter
 @Setter
-public class RegisterDto {
+@NoArgsConstructor
+@AllArgsConstructor
+public class UpdateProfileDto {
 
-
-
-    @NotEmpty(message = "First name is required")
+    @Nullable
     private String firstName;
 
-    @NotEmpty(message = "Last name is required")
+    @Nullable
     private String lastName;
 
+    @Nullable
     @Email(message = "Invalid email format")
-    @NotEmpty(message = "Email is required")
     private String email;
 
-    @NotEmpty(message = "Password is required")
+    @Nullable
     @Size(min = 6, message = "Password must be at least 6 characters long")
     private String password;
 
-    @NotEmpty(message = "Phone number is required")
-    private String phone;
 
+    @Nullable
+    private String phone;
 
 }

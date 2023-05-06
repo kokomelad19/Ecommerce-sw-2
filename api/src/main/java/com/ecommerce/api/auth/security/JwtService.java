@@ -24,7 +24,7 @@ public class JwtService {
     @Value("${jwt.TOKEN_SECRET}")
     private String TOKEN_SECRET;
 
-    public String extractUserEmail(String token) {
+    public String extractUserId(String token) {
         return extractClaim(token , Claims::getSubject);
     }
 
@@ -49,8 +49,8 @@ public class JwtService {
     }
 
     public Boolean isTokenValid(String token , UserDetails userDetails) {
-        final String userEmail = extractUserEmail(token);
-        return (userEmail.equals(userDetails.getUsername()) && !isTokenExpired(token));
+        final String userId = extractUserId(token);
+        return (userId.equals(userDetails.getUsername()) && !isTokenExpired(token));
     }
 
     private Boolean isTokenExpired(String token) {

@@ -1,4 +1,4 @@
-package com.ecommerce.api.users.dto;
+package com.ecommerce.api.users.dto.output;
 
 import com.ecommerce.api.users.enums.UserTypes;
 import lombok.*;

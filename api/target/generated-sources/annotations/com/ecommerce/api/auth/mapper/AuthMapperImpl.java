@@ -1,7 +1,7 @@
 package com.ecommerce.api.auth.mapper;
 
 import com.ecommerce.api.auth.dto.input.RegisterDto;
-import com.ecommerce.api.users.dto.UserDto;
+import com.ecommerce.api.users.dto.output.UserDto;
 import com.ecommerce.api.users.models.Users;
 import com.ecommerce.api.users.models.Users.UsersBuilder;
 import javax.annotation.processing.Generated;
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-05-04T13:14:42+0200",
+    date = "2023-05-06T21:44:19+0200",
     comments = "version: 1.4.2.Final, compiler: javac, environment: Java 17.0.1 (Oracle Corporation)"
 )
 @Component

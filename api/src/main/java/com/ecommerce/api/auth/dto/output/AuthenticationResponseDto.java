@@ -1,6 +1,6 @@
 package com.ecommerce.api.auth.dto.output;
 
-import com.ecommerce.api.users.dto.UserDto;
+import com.ecommerce.api.users.dto.output.UserDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
