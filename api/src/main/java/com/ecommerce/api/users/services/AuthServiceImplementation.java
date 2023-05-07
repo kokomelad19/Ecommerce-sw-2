@@ -1,6 +1,7 @@
 package com.ecommerce.api.users.services;
 
 
+import com.ecommerce.api.errorHandling.RecordNotFoundException;
 import com.ecommerce.api.users.dto.input.LoginDto;
 import com.ecommerce.api.users.dto.input.RegisterDto;
 import com.ecommerce.api.users.dto.output.AuthenticationResponseDto;
@@ -12,7 +13,6 @@ import com.ecommerce.api.users.repository.UsersRepository;
 import com.ecommerce.api.users.security.JwtService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -57,7 +57,7 @@ public class AuthServiceImplementation implements AuthService {
     }
 
     public UserDto findUserByEmail(String email) {
-        return authMapper.toUserDto(usersRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("User is not exist")));
+        return authMapper.toUserDto(usersRepository.findByEmail(email).orElseThrow(() -> new RecordNotFoundException("User is not exist")));
     }
 
 }
