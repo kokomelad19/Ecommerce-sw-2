@@ -8,6 +8,7 @@ import com.ecommerce.api.catalog.models.Category;
 import com.ecommerce.api.catalog.models.Product;
 import com.ecommerce.api.catalog.repository.CategoryRepository;
 import com.ecommerce.api.catalog.repository.ProductRepository;
+import com.ecommerce.api.errorHandling.RecordNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +21,7 @@ public class ProductServiceImplementation implements ProductService {
 
 
     public ProductDto createProduct(CreateProductDto createProductDto) {
-        Category category = categoryRepository.findById(createProductDto.getCategoryId()).orElse(null);
+        Category category = categoryRepository.findById(createProductDto.getCategoryId()).orElseThrow(() -> new RecordNotFoundException("Category is not exist"));
 
         Product product = productMapper.toEntity(createProductDto);
 
