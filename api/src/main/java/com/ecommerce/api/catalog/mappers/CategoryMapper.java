@@ -23,7 +23,6 @@ public interface CategoryMapper {
     @Mapping(target = "products" , ignore = true)
     Category toCategoryEntity(UpdateCategoryDto categoryDto);
 
-    @Mapping(target = "id" , ignore = true)
     @Mapping(target = "products" , ignore = true)
     Category toCategoryEntity(CategoryDto categoryDto);
 }
