@@ -1,16 +1,19 @@
 package com.ecommerce.api.errorHandling;
 
+import org.hibernate.TypeMismatchException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
@@ -39,10 +42,10 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(DataIntegrityViolationException.class)
-    public ResponseEntity<ErrorResponse> handleUniqueViolation(DataIntegrityViolationException ex, WebRequest request) {
+    public ResponseEntity<ErrorResponse> handleDataIntegrity(DataIntegrityViolationException ex, WebRequest request) {
         List<String> details = new ArrayList<>();
-        details.add("Unique Constraint Violation: " + ex.getMostSpecificCause().getMessage());
-        ErrorResponse error = new ErrorResponse("Unique Constraint Violation", HttpStatus.CONFLICT.toString(), details);
+        details.add("Data integrity : " + ex.getMostSpecificCause().getMessage());
+        ErrorResponse error = new ErrorResponse("Data integrity : ", HttpStatus.CONFLICT.toString(), details);
         return new ResponseEntity<>(error, HttpStatus.CONFLICT);
     }
 
@@ -72,11 +75,12 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(AccessDeniedException.class)
-    public ResponseEntity<ErrorResponse> handleAccessDeniedException(AccessDeniedException e) {
-        String message = "You are not authorized to access this resource.";
-        ErrorResponse errorResponse = new ErrorResponse(message, HttpStatus.FORBIDDEN.toString(), null);
-        return new ResponseEntity<>(errorResponse, HttpStatus.FORBIDDEN);
+    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
+    protected ResponseEntity<Object> handleTypeMismatch(MethodArgumentTypeMismatchException ex, WebRequest request) {
+        List<String> details = new ArrayList<>();
+        details.add("Failed to convert '" + ex.getPropertyName() + "' with value: '" + ex.getValue() + "'");
+        ErrorResponse error = new ErrorResponse("Bad Request", HttpStatus.BAD_REQUEST.toString(), details);
+        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
 
 

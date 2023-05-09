@@ -5,6 +5,7 @@ import com.ecommerce.api.catalog.dto.input.UpdateCategoryDto;
 import com.ecommerce.api.catalog.dto.output.CategoryDto;
 import com.ecommerce.api.catalog.interfaces.CategoryService;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Positive;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,13 +28,13 @@ public class CategoryController {
 
 
     @PutMapping("/{categoryId}")
-    public ResponseEntity<CategoryDto> updateCategory(@PathVariable Long categoryId, @RequestBody @Valid UpdateCategoryDto updateCategoryDto) {
+    public ResponseEntity<CategoryDto> updateCategory(@PathVariable @Positive Long categoryId, @RequestBody @Valid UpdateCategoryDto updateCategoryDto) {
         return ResponseEntity.ok(categoryService.updateCategory(categoryId, updateCategoryDto));
     }
 
 
     @DeleteMapping("/{categoryId}")
-    public ResponseEntity<CategoryDto> deleteCategory(@PathVariable Long categoryId) {
+    public ResponseEntity<Object> deleteCategory(@PathVariable @Positive Long categoryId) {
         categoryService.deleteCategoryById(categoryId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
@@ -45,7 +46,7 @@ public class CategoryController {
 
 
     @GetMapping("/{categoryId}")
-    public ResponseEntity<CategoryDto> getCategoryById(@PathVariable Long categoryId) {
+    public ResponseEntity<CategoryDto> getCategoryById(@PathVariable @Positive Long categoryId) {
         return ResponseEntity.ok(categoryService.getCategoryById(categoryId));
     }
 }

@@ -1,6 +1,7 @@
 package com.ecommerce.api.catalog.mappers;
 
 import com.ecommerce.api.catalog.dto.input.CreateProductDto;
+import com.ecommerce.api.catalog.dto.input.UpdateProductDto;
 import com.ecommerce.api.catalog.dto.output.ProductDto;
 import com.ecommerce.api.catalog.models.Product;
 import org.mapstruct.Mapper;
@@ -18,4 +19,8 @@ public interface ProductMapper {
     @Mapping(target = "id" , ignore = true)
     @Mapping(target = "category" , ignore = true)
     Product toEntity(CreateProductDto createProductDto);
+
+    @Mapping(target = "id" , ignore = true)
+    @Mapping(target = "category" , ignore = true)
+    Product toEntity(UpdateProductDto updateProductDto);
 }
