@@ -16,6 +16,8 @@ public interface ProductMapper {
 
     List<ProductDto> toDto(List<Product> products);
 
+
+
     @Mapping(target = "id" , ignore = true)
     @Mapping(target = "category" , ignore = true)
     Product toEntity(CreateProductDto createProductDto);
@@ -23,4 +25,6 @@ public interface ProductMapper {
     @Mapping(target = "id" , ignore = true)
     @Mapping(target = "category" , ignore = true)
     Product toEntity(UpdateProductDto updateProductDto);
+
+    Product toEntity(ProductDto productDto);
 }

@@ -1,5 +1,6 @@
 package com.ecommerce.api.users.models;
 
+import com.ecommerce.api.cart.models.Cart;
 import com.ecommerce.api.users.enums.UserTypes;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -44,6 +45,11 @@ public class Users implements UserDetails {
     @Enumerated(EnumType.STRING)
     @Builder.Default
     private UserTypes userType = UserTypes.USER;
+
+
+//    The orphanRemoval = true setting will ensure that if the Cart entity is no longer referenced by its associated User entity, it will be removed from the database.
+    @OneToOne(mappedBy = "user", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private Cart cart;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

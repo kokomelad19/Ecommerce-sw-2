@@ -1,5 +1,6 @@
 package com.ecommerce.api.catalog.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -27,6 +28,7 @@ public class Category {
 
 
     // mapped by is name of field point to category in product
-    @OneToMany(mappedBy = "category" , cascade = CascadeType.ALL)
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.LAZY , mappedBy = "category" , cascade = CascadeType.ALL)
     private List<Product> products;
 }
