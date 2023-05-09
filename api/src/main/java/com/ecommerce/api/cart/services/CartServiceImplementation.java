@@ -1,7 +1,7 @@
 package com.ecommerce.api.cart.services;
 
 import com.ecommerce.api.cart.dto.input.AddToCartDto;
-import com.ecommerce.api.cart.dto.output.CartItemsDto;
+import com.ecommerce.api.cart.dto.output.CartItemDto;
 import com.ecommerce.api.cart.interfaces.CartService;
 import com.ecommerce.api.cart.mappers.CartItemMapper;
 import com.ecommerce.api.cart.models.Cart;
@@ -16,6 +16,8 @@ import com.ecommerce.api.users.models.Users;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -32,7 +34,7 @@ public class CartServiceImplementation implements CartService {
     private final ProductMapper productMapper;
 
     @Transactional
-    public CartItemsDto addToCart(AddToCartDto addToCartDto, Users user) {
+    public CartItemDto addToCart(AddToCartDto addToCartDto, Users user) {
         // check if user has no cart then create one
         Cart cart = cartRepository.findByUser(user).orElseGet(() -> {
             Cart userCart = Cart.builder().user(user).build();
@@ -56,5 +58,28 @@ public class CartServiceImplementation implements CartService {
                 .build();
 
         return cartItemMapper.toDto(cartItemRepository.save(cartItem));
+    }
+
+    public List<CartItemDto> getUserCart(Users user) {
+        // check if user has no cart then create one
+        Cart cart = cartRepository.findByUser(user).orElseGet(() -> {
+            Cart userCart = Cart.builder().user(user).build();
+            return cartRepository.save(userCart);
+        });
+
+        return cartItemMapper.toDto(cartItemRepository.findByCart(cart));
+    }
+
+
+    public void removeFromCart(long productId, Users user) {
+        Cart cart = cartRepository.findByUser(user).orElse(null);
+        if(cart == null) return;
+
+        CartItemId cartItemId = CartItemId.builder()
+                .productId(productId)
+                .cartId(cart.getId())
+                .build();
+
+        cartItemRepository.deleteById(cartItemId);
     }
 }
