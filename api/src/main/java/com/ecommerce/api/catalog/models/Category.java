@@ -27,6 +27,6 @@ public class Category {
 
 
     // mapped by is name of field point to category in product
-    @OneToMany(mappedBy = "category")
+    @OneToMany(mappedBy = "category" , cascade = CascadeType.ALL)
     private List<Product> products;
 }

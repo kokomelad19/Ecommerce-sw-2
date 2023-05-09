@@ -31,7 +31,7 @@ public class Product {
     private BigDecimal price;
 
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER , cascade = CascadeType.REMOVE)
     @JoinColumn(name = "category_id", referencedColumnName = "id")
     private Category category;
 

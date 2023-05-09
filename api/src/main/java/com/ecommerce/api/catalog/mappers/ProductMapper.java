@@ -6,10 +6,14 @@ import com.ecommerce.api.catalog.models.Product;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
+import java.util.List;
+
 @Mapper(componentModel = "spring" , uses = CategoryMapper.class)
 public interface ProductMapper {
 
     ProductDto toDto(Product product);
+
+    List<ProductDto> toDto(List<Product> products);
 
     @Mapping(target = "id" , ignore = true)
     @Mapping(target = "category" , ignore = true)

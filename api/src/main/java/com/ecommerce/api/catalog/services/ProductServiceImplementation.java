@@ -12,6 +12,8 @@ import com.ecommerce.api.catalog.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class ProductServiceImplementation implements ProductService {
@@ -33,4 +35,26 @@ public class ProductServiceImplementation implements ProductService {
 
         return productMapper.toDto(productRepository.save(product));
     }
+
+
+    public List<ProductDto> getAllProducts() {
+        return productMapper.toDto(productRepository.findAll());
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
