@@ -3,7 +3,7 @@ package com.ecommerce.api.cart.controllers;
 import com.ecommerce.api.cart.dto.input.AddToCartDto;
 import com.ecommerce.api.cart.dto.output.CartItemDto;
 import com.ecommerce.api.cart.interfaces.CartService;
-import com.ecommerce.api.users.models.Users;
+import com.ecommerce.api.user.models.User;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Positive;
 import lombok.RequiredArgsConstructor;
@@ -22,17 +22,17 @@ public class CartController {
 
 
     @PostMapping("/item")
-    public ResponseEntity<CartItemDto> addToCart(@RequestBody @Valid AddToCartDto addToCartDto, @AuthenticationPrincipal Users user) {
+    public ResponseEntity<CartItemDto> addToCart(@RequestBody @Valid AddToCartDto addToCartDto, @AuthenticationPrincipal User user) {
         return new ResponseEntity<>(cartService.addToCart(addToCartDto, user), HttpStatus.CREATED);
     }
 
     @GetMapping("/")
-    public ResponseEntity<List<CartItemDto>> getUserCart(@AuthenticationPrincipal Users user) {
+    public ResponseEntity<List<CartItemDto>> getUserCart(@AuthenticationPrincipal User user) {
         return  ResponseEntity.ok(cartService.getUserCart(user));
     }
 
     @DeleteMapping("/item/{productId}")
-    public ResponseEntity<Object> removeFromCart(@PathVariable @Positive long productId, @AuthenticationPrincipal Users user) {
+    public ResponseEntity<Object> removeFromCart(@PathVariable @Positive long productId, @AuthenticationPrincipal User user) {
         cartService.removeFromCart(productId, user);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

@@ -1,6 +1,6 @@
 package com.ecommerce.api.cart.models;
 
-import com.ecommerce.api.users.models.Users;
+import com.ecommerce.api.user.models.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -8,7 +8,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -26,7 +25,7 @@ public class Cart {
     @JsonIgnore
     @OneToOne(fetch = FetchType.LAZY , cascade = CascadeType.REMOVE)
     @JoinColumn(name = "user_id")
-    private Users user;
+    private User user;
 
     @OneToMany(fetch = FetchType.EAGER , mappedBy = "cart", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<CartItem> cartItems;

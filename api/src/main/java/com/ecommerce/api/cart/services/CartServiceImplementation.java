@@ -12,7 +12,7 @@ import com.ecommerce.api.cart.repository.CartRepository;
 import com.ecommerce.api.catalog.interfaces.ProductService;
 import com.ecommerce.api.catalog.mappers.ProductMapper;
 import com.ecommerce.api.catalog.models.Product;
-import com.ecommerce.api.users.models.Users;
+import com.ecommerce.api.user.models.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,7 +34,7 @@ public class CartServiceImplementation implements CartService {
     private final ProductMapper productMapper;
 
     @Transactional
-    public CartItemDto addToCart(AddToCartDto addToCartDto, Users user) {
+    public CartItemDto addToCart(AddToCartDto addToCartDto, User user) {
         // check if user has no cart then create one
         Cart cart = cartRepository.findByUser(user).orElseGet(() -> {
             Cart userCart = Cart.builder().user(user).build();
@@ -60,7 +60,7 @@ public class CartServiceImplementation implements CartService {
         return cartItemMapper.toDto(cartItemRepository.save(cartItem));
     }
 
-    public List<CartItemDto> getUserCart(Users user) {
+    public List<CartItemDto> getUserCart(User user) {
         // check if user has no cart then create one
         Cart cart = cartRepository.findByUser(user).orElseGet(() -> {
             Cart userCart = Cart.builder().user(user).build();
@@ -71,7 +71,7 @@ public class CartServiceImplementation implements CartService {
     }
 
 
-    public void removeFromCart(long productId, Users user) {
+    public void removeFromCart(long productId, User user) {
         Cart cart = cartRepository.findByUser(user).orElse(null);
         if(cart == null) return;
 
