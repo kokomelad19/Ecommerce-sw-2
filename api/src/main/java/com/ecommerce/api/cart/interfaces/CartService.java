@@ -13,4 +13,6 @@ public interface CartService {
     public List<CartItemDto> getUserCart(User user);
 
     public void removeFromCart(long productId , User user);
+
+    public void deleteAllItems(List<CartItemDto> cartItems);
 }

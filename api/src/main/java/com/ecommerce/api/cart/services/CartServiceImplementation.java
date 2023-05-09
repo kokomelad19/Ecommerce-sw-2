@@ -45,17 +45,9 @@ public class CartServiceImplementation implements CartService {
         Product product = productMapper.toEntity(productService.getProductById(addToCartDto.getProductId()));
 
         // Set Composite Key
-        CartItemId cartItemId = CartItemId.builder()
-                .cartId(cart.getId())
-                .productId(product.getId())
-                .build();
+        CartItemId cartItemId = CartItemId.builder().cartId(cart.getId()).productId(product.getId()).build();
 
-        CartItem cartItem = CartItem.builder()
-                .id(cartItemId)
-                .cart(cart)
-                .product(product)
-                .quantity(addToCartDto.getQuantity())
-                .build();
+        CartItem cartItem = CartItem.builder().id(cartItemId).cart(cart).product(product).quantity(addToCartDto.getQuantity()).build();
 
         return cartItemMapper.toDto(cartItemRepository.save(cartItem));
     }
@@ -73,13 +65,14 @@ public class CartServiceImplementation implements CartService {
 
     public void removeFromCart(long productId, User user) {
         Cart cart = cartRepository.findByUser(user).orElse(null);
-        if(cart == null) return;
+        if (cart == null) return;
 
-        CartItemId cartItemId = CartItemId.builder()
-                .productId(productId)
-                .cartId(cart.getId())
-                .build();
+        CartItemId cartItemId = CartItemId.builder().productId(productId).cartId(cart.getId()).build();
 
         cartItemRepository.deleteById(cartItemId);
+    }
+
+    public void deleteAllItems(List<CartItemDto> cartItems) {
+        cartItemRepository.deleteAll(cartItemMapper.toEntity(cartItems));
     }
 }

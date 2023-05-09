@@ -26,8 +26,7 @@ public class CartItemId implements Serializable {
     @Override
     public boolean equals(Object object) {
         if (this == object) return true;
-        if (!(object instanceof CartItemId)) return false;
-        CartItemId cartItemId = (CartItemId) object;
+        if (!(object instanceof CartItemId cartItemId)) return false;
         return Objects.equals(getCartId(), cartItemId.getCartId()) &&
                 Objects.equals(getProductId(), cartItemId.getProductId());
     }

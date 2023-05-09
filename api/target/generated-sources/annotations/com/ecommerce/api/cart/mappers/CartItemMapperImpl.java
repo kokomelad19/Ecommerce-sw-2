@@ -2,6 +2,7 @@ package com.ecommerce.api.cart.mappers;
 
 import com.ecommerce.api.cart.dto.output.CartItemDto;
 import com.ecommerce.api.cart.models.CartItem;
+import com.ecommerce.api.cart.models.CartItem.CartItemBuilder;
 import com.ecommerce.api.catalog.mappers.ProductMapper;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +12,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-05-09T21:55:39+0200",
+    date = "2023-05-10T00:42:35+0200",
     comments = "version: 1.4.2.Final, compiler: javac, environment: Java 17.0.1 (Oracle Corporation)"
 )
 @Component
@@ -47,5 +48,33 @@ public class CartItemMapperImpl implements CartItemMapper {
         }
 
         return list;
+    }
+
+    @Override
+    public List<CartItem> toEntity(List<CartItemDto> cartItems) {
+        if ( cartItems == null ) {
+            return null;
+        }
+
+        List<CartItem> list = new ArrayList<CartItem>( cartItems.size() );
+        for ( CartItemDto cartItemDto : cartItems ) {
+            list.add( cartItemDtoToCartItem( cartItemDto ) );
+        }
+
+        return list;
+    }
+
+    protected CartItem cartItemDtoToCartItem(CartItemDto cartItemDto) {
+        if ( cartItemDto == null ) {
+            return null;
+        }
+
+        CartItemBuilder cartItem = CartItem.builder();
+
+        cartItem.id( cartItemDto.getId() );
+        cartItem.product( productMapper.toEntity( cartItemDto.getProduct() ) );
+        cartItem.quantity( cartItemDto.getQuantity() );
+
+        return cartItem.build();
     }
 }
