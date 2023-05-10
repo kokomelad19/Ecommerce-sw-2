@@ -2,6 +2,7 @@ package com.ecommerce.api.user.models;
 
 import com.ecommerce.api.cart.models.Cart;
 import com.ecommerce.api.user.enums.UserType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -47,8 +48,9 @@ public class User implements UserDetails {
     private UserType userType = UserType.USER;
 
 
-//    The orphanRemoval = true setting will ensure that if the Cart entity is no longer referenced by its associated User entity, it will be removed from the database.
-    @OneToOne(mappedBy = "user", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    //    The orphanRemoval = true setting will ensure that if the Cart entity is no longer referenced by its associated User entity, it will be removed from the database.
+    @JsonIgnore
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private Cart cart;
 
     @Override

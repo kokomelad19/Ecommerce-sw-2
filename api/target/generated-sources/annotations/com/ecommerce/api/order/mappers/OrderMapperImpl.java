@@ -2,13 +2,15 @@ package com.ecommerce.api.order.mappers;
 
 import com.ecommerce.api.order.dto.output.OrderDto;
 import com.ecommerce.api.order.models.Order;
+import java.util.ArrayList;
+import java.util.List;
 import javax.annotation.processing.Generated;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-05-10T00:42:36+0200",
+    date = "2023-05-10T01:46:42+0200",
     comments = "version: 1.4.2.Final, compiler: javac, environment: Java 17.0.1 (Oracle Corporation)"
 )
 @Component
@@ -32,5 +34,19 @@ public class OrderMapperImpl implements OrderMapper {
         orderDto.setOrderItems( orderItemMapper.toDto( order.getOrderItems() ) );
 
         return orderDto;
+    }
+
+    @Override
+    public List<OrderDto> toDto(List<Order> orders) {
+        if ( orders == null ) {
+            return null;
+        }
+
+        List<OrderDto> list = new ArrayList<OrderDto>( orders.size() );
+        for ( Order order : orders ) {
+            list.add( toDto( order ) );
+        }
+
+        return list;
     }
 }

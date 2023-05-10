@@ -30,6 +30,8 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.POST , "/api/catalog/**").hasAnyAuthority(UserType.ADMIN.toString())
                 .requestMatchers(HttpMethod.PUT , "/api/catalog/**").hasAnyAuthority(UserType.ADMIN.toString())
                 .requestMatchers(HttpMethod.DELETE , "/api/catalog/**").hasAnyAuthority(UserType.ADMIN.toString())
+                .requestMatchers(HttpMethod.GET , "/api/order/").hasAnyAuthority(UserType.ADMIN.toString())
+                .requestMatchers(HttpMethod.PUT , "/api/order/").hasAnyAuthority(UserType.ADMIN.toString())
                 .anyRequest()
                 .authenticated()
                 .and()
