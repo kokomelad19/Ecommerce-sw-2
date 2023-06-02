@@ -22,7 +22,7 @@ public class UpdateProductDto {
     private String description;
 
     @NotNull(message = "Product price is required")
-    @DecimalMin(value = "100", message = "Product Price cannot be less than 100")
+    @DecimalMin(value = "0", message = "Product Price cannot be less than 100")
     private BigDecimal price;
 
     @NotNull(message = "Product category is required")

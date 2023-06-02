@@ -3,6 +3,7 @@ package com.ecommerce.api.order.models;
 import com.ecommerce.api.catalog.models.Product;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.DecimalMin;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -30,9 +31,11 @@ public class OrderItem {
     private Product product;
 
     @Column(nullable = false)
+    @DecimalMin(value = "1")
     private long quantity;
 
     @Column(nullable = false)
+    @DecimalMin(value = "0")
     private BigDecimal unitPrice;
 
 }

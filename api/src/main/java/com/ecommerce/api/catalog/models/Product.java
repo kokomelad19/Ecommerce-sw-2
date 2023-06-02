@@ -1,6 +1,7 @@
 package com.ecommerce.api.catalog.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.Min;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -27,7 +28,7 @@ public class Product {
     private String description;
 
     @Column(nullable = false)
-    @Min(10)
+    @DecimalMin(value = "0")
     private BigDecimal price;
 
 

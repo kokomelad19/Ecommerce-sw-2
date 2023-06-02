@@ -3,6 +3,7 @@ package com.ecommerce.api.cart.models;
 import com.ecommerce.api.catalog.models.Product;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.DecimalMin;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -29,6 +30,7 @@ public class CartItem {
     private Product product;
 
     @Column(nullable = false)
+    @DecimalMin(value = "1")
     private long quantity;
 }
 
